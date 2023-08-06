@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { useEffect } from 'react';
+import { fetchContacts } from 'redux/Contacts/operations';
 import {
   ContactsList,
   ContactsItem,
@@ -8,36 +9,37 @@ import {
   ContactsButton,
 } from './ContactList.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
-import { getContacts, getFilterValue } from 'redux/selectors';
+import { deleteContact } from 'redux/Contacts/operations';
+import { selectVisibleContacts } from 'redux/Contacts/selectors';
 
 const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilterValue);
-  const normalizedFilter = filter.toLowerCase();
   const dispatch = useDispatch();
-  const filteredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter)
-  );
-
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+  const contacts = useSelector(selectVisibleContacts);
   return (
-    <ContactsList>
-      {filteredContacts.map(contact => {
-        return (
-          <ContactsItem key={contact.id}>
-            <ContactsName>
-              {contact.name}: <ContactsPhone>{contact.number}</ContactsPhone>
-            </ContactsName>
-            <ContactsButton
-              type="button"
-              onClick={() => dispatch(deleteContact(contact.id))}
-            >
-              <span>Delete</span>
-            </ContactsButton>
-          </ContactsItem>
-        );
-      })}
-    </ContactsList>
+    <>
+      {contacts.length > 0 && (
+        <ContactsList>
+          {contacts.map(contact => {
+            return (
+              <ContactsItem key={contact.id}>
+                <ContactsName>
+                  {contact.name}: <ContactsPhone>{contact.phone}</ContactsPhone>
+                </ContactsName>
+                <ContactsButton
+                  type="button"
+                  onClick={() => dispatch(deleteContact(contact.id))}
+                >
+                  <span>Delete</span>
+                </ContactsButton>
+              </ContactsItem>
+            );
+          })}
+        </ContactsList>
+      )}
+    </>
   );
 };
 

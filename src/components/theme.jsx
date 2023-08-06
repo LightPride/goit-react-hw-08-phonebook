@@ -5,6 +5,7 @@ export const theme = {
     grey: '#fff',
     green: 'green',
     orange: '#cd7305',
+    orangered: '#fc6900',
   },
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
 

@@ -1,30 +1,34 @@
 import React, { useState } from 'react';
 import { Form, FormLabel, FormInput, FormButton } from './ContactForm.styled';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/Contacts/operations';
 import shortid from 'shortid';
-import { getContacts } from 'redux/selectors';
+import { selectContacts, selectIsLoading } from 'redux/Contacts/selectors';
+
+import { toast } from 'react-toastify';
+import { notifyOptions } from 'components/notifyOptions';
 
 function ContactForm() {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
+
   const dispatch = useDispatch();
+
   const handleSubmit = event => {
     event.preventDefault();
-    const newContact = {
-      id: shortid.generate(),
-      ...{ name, number },
-    };
+    const normalizedName = name.toLowerCase();
     const existingContact = contacts.find(
-      contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+      contact => contact.name.toLowerCase() === normalizedName
     );
-    resetForm();
     if (existingContact) {
-      alert(`${existingContact.name} is already in contacts`);
+      toast.error(`${name}: is already in contacts`, notifyOptions);
       return;
     }
-    dispatch(addContact(newContact));
+
+    dispatch(addContact({ id: shortid.generate(), name, number }));
+    resetForm();
   };
 
   const handleChange = event => {
@@ -67,10 +71,13 @@ function ContactForm() {
           type="text"
           value={number}
           name="number"
+          pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
           onChange={handleChange}
         />
       </FormLabel>
-      <FormButton type="submit">Add contact</FormButton>
+      <FormButton type="submit">
+        {isLoading ? 'Loading...' : 'Add Contact'}
+      </FormButton>
     </Form>
   );
 }

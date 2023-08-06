@@ -1,6 +1,6 @@
 import { Link } from './AuthNavigation.styled';
 
-export const AuthNav = () => {
+export const AuthNavigation = () => {
   return (
     <nav>
       <Link to="/register">Register</Link>
