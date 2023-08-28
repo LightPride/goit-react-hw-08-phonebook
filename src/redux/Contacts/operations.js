@@ -19,6 +19,7 @@ export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact, { rejectWithValue }) => {
     try {
+      console.log(contact);
       const response = await axios.post('/contacts', contact);
       // Notiflix.Notify.success('Contact was added successfully');
       return response;

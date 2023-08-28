@@ -26,7 +26,8 @@ const ContactList = () => {
             return (
               <ContactsItem key={contact.id}>
                 <ContactsName>
-                  {contact.name}: <ContactsPhone>{contact.phone}</ContactsPhone>
+                  {contact.name}:{' '}
+                  <ContactsPhone>{contact.number}</ContactsPhone>
                 </ContactsName>
                 <ContactsButton
                   type="button"
