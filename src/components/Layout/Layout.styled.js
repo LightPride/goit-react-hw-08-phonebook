@@ -9,7 +9,18 @@ export const Container = styled.div`
 export const Title = styled.h1`
   text-align: center;
   margin-top: 30px;
-  margin-bottom: 30px;
-  font-size: ${p => p.theme.fontSize.xl};
-  color: ${p => p.theme.colors.white};
+  margin-bottom: 10px;
+  color: white;
+`;
+
+export const StylesDiv = styled.div`
+  background: linear-gradient(#141e30, #243b55);
+  height: 100vh;
+`;
+
+export const PagesContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;

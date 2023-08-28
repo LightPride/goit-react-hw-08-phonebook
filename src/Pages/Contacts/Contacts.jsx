@@ -6,18 +6,19 @@ import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
 
+import { PagesContainer } from 'components/Layout/Layout.styled';
 const Contacts = () => {
   // const dispatch = useDispatch();
 
   return (
-    <>
-      <Title title="Phonebook" />
+    <PagesContainer>
+      <Title>Phonebook</Title>
       <ContactForm />
-      <Title title="Contacts" />
+      <Title>Your Conracts</Title>
       <Filter />
       <ContactList />
       <ToastContainer />
-    </>
+    </PagesContainer>
   );
 };
 

@@ -1,10 +1,10 @@
 import { LoginForm } from 'components/LoginForm/LoginForm';
+import { PagesContainer } from 'components/Layout/Layout.styled';
 
 export default function Login() {
   return (
-    <div>
-      <title>Login</title>
+    <PagesContainer>
       <LoginForm />
-    </div>
+    </PagesContainer>
   );
 }
