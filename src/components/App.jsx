@@ -10,12 +10,16 @@ const HomePage = lazy(() => import('../Pages/Home/Home'));
 const RegisterPage = lazy(() => import('../Pages/Register/Register'));
 const LoginPage = lazy(() => import('../Pages/Login/Login'));
 const ContactsPage = lazy(() => import('../Pages/Contacts/Contacts'));
+
 function App() {
   const dispatch = useDispatch();
+
   const isRefreshing = useSelector(selectIsRefreshing);
+
   useEffect(() => {
     dispatch(refreshCurrentUser());
   }, [dispatch]);
+
   return isRefreshing ? (
     <b>Refreshing...</b>
   ) : (

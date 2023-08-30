@@ -15,7 +15,7 @@ export const Title = styled.h1`
 
 export const StylesDiv = styled.div`
   background: linear-gradient(#141e30, #243b55);
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export const PagesContainer = styled.div`
