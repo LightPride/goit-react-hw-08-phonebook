@@ -21,9 +21,9 @@ export const register = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
-      if (error.response.data.keyValue.email === credentials.email) {
-        Notiflix.Notify.warning('This email is already registered');
-      }
+      // if (error.response.data.keyValue.email === credentials.email) {
+      //   Notiflix.Notify.warning('This email is already registered');
+      // }
       return thunkAPI.rejectWithValue(error.message);
     }
   }
