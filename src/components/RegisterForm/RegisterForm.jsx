@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import Notiflix from 'notiflix';
 import { register } from 'redux/Authorization/operations';
 import {
   Container,
@@ -16,6 +17,11 @@ export const RegisterForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
+    console.log(form.elements.password.value.length);
+    if (form.elements.password.value.length < 7) {
+      Notiflix.Notify.failure('Password should contain more than 6 symbols');
+      return;
+    }
     dispatch(
       register({
         name: form.elements.name.value,
@@ -55,7 +61,7 @@ export const RegisterForm = () => {
             type="password"
             name="password"
             placeholder="Enter your password"
-            pattern="^[a-zA-Z0-9!@#$%^&*()-_=+`~[\]{}|:<>/?]+$"
+            pattern="^[a-zA-Z0-9!@#$%^&*()-_=+`~[]{}|:<>/?]+$"
             title="The password must contain only Latin letters (both upper and lower case), numbers and other symbols"
             required
           />
